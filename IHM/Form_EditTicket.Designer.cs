@@ -150,7 +150,7 @@
             this.dTP_DateInter.Name = "dTP_DateInter";
             this.dTP_DateInter.Size = new System.Drawing.Size(280, 27);
             this.dTP_DateInter.TabIndex = 10;
-            this.dTP_DateInter.Value = new System.DateTime(2020, 9, 23, 18, 24, 7, 0);
+            this.dTP_DateInter.Value = new System.DateTime(2020, 9, 29, 13, 28, 11, 0);
             this.dTP_DateInter.ValueChanged += new System.EventHandler(this.dTP_DateInter_ValueChanged);
             // 
             // label_Reponse

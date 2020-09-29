@@ -47,7 +47,7 @@ namespace HelpDesk.IHM
             //Initialisation de la connection SQL (je n'ai pas utilisé la classe pour avoir une meilleure main sur le reader)
             SqlConnection conn = new SqlConnection(conString);
             conn.Open();
-            string query = "SELECT Num, Object, State, DtRequest, DtIntervention, UidUserRequest FROM tbTicket ";
+            string query = "SELECT Num, Object, State, DtRequest, DtIntervention, UidUserRequest, Duree FROM tbTicket ";
             SqlCommand comm = new SqlCommand(query, conn);
             SqlDataReader reader = comm.ExecuteReader();
             if (reader.HasRows)
@@ -55,8 +55,9 @@ namespace HelpDesk.IHM
                 while (reader.Read())
                 {
                     User utilisateur = new User(reader[5].ToString());
+                    Ticket ceTicket = new Ticket(Convert.ToInt32(reader[0]));
                     //on remplit une ligne du DataGridView par ligne dans la table
-                    dataGridView_AllTickets.Rows.Add(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), utilisateur.GetUserNames(), " ", reader[4].ToString());
+                    dataGridView_AllTickets.Rows.Add(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), utilisateur.GetUserNames(), reader[6].ToString(), reader[4].ToString());
                 }
                 //On ferme le reader et la connection SQL
                 reader.Close();

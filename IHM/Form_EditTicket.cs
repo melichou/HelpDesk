@@ -48,17 +48,17 @@ namespace HelpDesk.IHM
         {
             if (dTP_DateInter.Value != null && richTextBox_Response.Text != null && textBox_Duree.Text != null)
             {
-                ceTicket.duree = textBox_Duree.Text + " " + listBox_TypeDuree.SelectedItem;
+                string duree = textBox_Duree.Text + " " + listBox_TypeDuree.SelectedItem;
                 DateTime dateInter = dTP_DateInter.Value;
                 SQL ticketState = new SQL();
                 string query = "SELECT Idfc from tbTicketState WHERE Name = '" + listBox_Etat.SelectedItem + "'";
-                ceTicket.ModifierTicket(richTextBox_Response.Text, dateInter, Convert.ToInt32(ticketState.ExecuteDB(query)), utilisateur.GetUserEmail(), utilisateur.GetUserPassword());
+                ceTicket.ModifierTicket(richTextBox_Response.Text, dateInter, Convert.ToInt32(ticketState.ExecuteDB(query)), duree, utilisateur.GetUserEmail(), utilisateur.GetUserPassword());
 
 
                 //On enregistre dans la base de données les données manquantes récupérées par le technicien
                 SqlConnection remplirTicket = new SqlConnection(conString);
                 remplirTicket.Open();
-                string queryRemplir = "UPDATE tbTicket SET UidUserResponse = '" + ceTicket.uidUserResponse + "', DtIntervention = '" + ceTicket.dtIntervention.Date + "', Response = '" + ceTicket.response + "', State = " + ceTicket.stateT + " WHERE num = " + ceTicket.GetNum();
+                string queryRemplir = "UPDATE tbTicket SET UidUserResponse = '" + ceTicket.uidUserResponse + "', DtIntervention = '" + ceTicket.dtIntervention.Date + "', Response = '" + ceTicket.response + "', State = " + ceTicket.stateT + ", Duree = '" + ceTicket.dureeD + "' WHERE num = " + ceTicket.GetNum();
                 SqlCommand remplirceTicket = new SqlCommand(queryRemplir, remplirTicket);
                 int reussi = remplirceTicket.ExecuteNonQuery();                
                 if (reussi != 0)

@@ -16,11 +16,13 @@ namespace HelpDesk.IHM
         User utilisateur;
         string conString = "Data Source=LAPTOP-QA1JQG2U\\MSQL2019;Initial Catalog=dbHelpDesk;Integrated Security=True";
         int numTicket;
+        Ticket ceTicket;
         public Form_DetailTicketVisit(int nbTicket, string email, string password)
         {
             InitializeComponent();
             utilisateur = new User(email, password);
             numTicket = nbTicket;
+            ceTicket = new Ticket(numTicket);
         }
 
         private void Form_DetailTicketVisit_Load(object sender, EventArgs e)
@@ -48,7 +50,7 @@ namespace HelpDesk.IHM
                 while (reader.Read())
                 {
                     //on remplit une ligne du DataGridView par ligne dans la table
-                    dataGridView_DetailTicket.Rows.Add(reader[1].ToString(), reader[3].ToString(), reader[2].ToString(), reader[4].ToString(), utilisateur.GetUserNames(), reader[5].ToString(), " ", reader[8].ToString(), reader[9].ToString());
+                    dataGridView_DetailTicket.Rows.Add(reader[1].ToString(), reader[3].ToString(), reader[2].ToString(), reader[4].ToString(), utilisateur.GetUserNames(), reader[5].ToString(), ceTicket.GetDuree(), reader[8].ToString(), reader[9].ToString());
                 }
                 //On ferme le reader et la connection SQL
                 reader.Close();

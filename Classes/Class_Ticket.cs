@@ -22,7 +22,7 @@ public class Ticket
     public DateTime dtIntervention = new DateTime();
     public string response;
     string conString = "Data Source=LAPTOP-QA1JQG2U\\MSQL2019;Initial Catalog=dbHelpDesk;Integrated Security=True";
-    public string duree;
+    public string dureeD;
 
 
     public Ticket(string objet,string req)
@@ -48,7 +48,7 @@ public class Ticket
             this.obj = reader[1].ToString();
             this.dtRequest = Convert.ToDateTime(reader[2]);
             this.request = reader[3].ToString();
-            this.uidUserRequest = reader[4].ToString();            
+            this.uidUserRequest = reader[4].ToString();
         }
         else
         {
@@ -57,11 +57,12 @@ public class Ticket
         
     }
 
-    public void ModifierTicket(string rep, DateTime dateInter, int state, string email, string password)
+    public void ModifierTicket(string rep, DateTime dateInter, int state, string duree, string email, string password)
     {
-        dtIntervention = dateInter.Date;
+        dtIntervention = dateInter;
         response = rep;
         stateT = state;
+        dureeD = duree;
         SQL getUserId = new SQL();
         string query = "SELECT Uid FROM tbUser WHERE Email = '" + email + "' AND Password = '" + password + "'";
         uidUserResponse = getUserId.ExecuteDB(query);
@@ -110,6 +111,11 @@ public class Ticket
     public DateTime GetDtInter()
     {
         return this.dtIntervention;
+    }
+
+    public string GetDuree()
+    {
+        return this.dureeD;
     }
 
 }
